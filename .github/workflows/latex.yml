@@ -1,21 +1,28 @@
-name: Test CI
+name: Build PDF
 
 on:
   push:
     branches:
       - develop
-
-# force switching from Node.js 20 to Node.js 24 to avoid warning message
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      - main
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    container:
+      image: debian:stable-slim
 
-      - name: Test
-        run: echo "Hello GitHub Actions"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y \
+            texlive-latex-base --no-install-recommends \
+            latexmk
+
+      - name: Build
+        run: |
+          latexmk -pdf main.tex
