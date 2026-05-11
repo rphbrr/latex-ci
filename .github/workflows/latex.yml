@@ -5,6 +5,10 @@ on:
     branches:
       - develop
 
+# force switching from Node.js 20 to Node.js 24 to avoid warning message
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
