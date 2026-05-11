@@ -1,0 +1,16 @@
+## macOS
+.DS_Store
+._*
+
+## LaTeX
+### latex/pdflatex auxiliary files
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.pdf
+
+### vimtex auxiliary files
+*.fdb_latexmk
+*.synctex.gz
