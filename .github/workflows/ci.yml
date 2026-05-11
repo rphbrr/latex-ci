@@ -1,4 +1,4 @@
-name: Build PDF
+name: CI
 
 on:
   push:
@@ -19,13 +19,23 @@ jobs:
       - name: Install dependencies
         run: |
           apt-get update
-          apt-get install -y \
-            texlive-latex-base --no-install-recommends \
-            latexmk
+          apt-get install -y --no-install-recommends \
+            texlive-latex-base latexmk
 
       - name: Build
         run: |
           latexmk -pdf main.tex
+
+      - name: Prepare Pages
+        run: |
+          mkdir -p public
+          cp main.pdf public/project.pdf
+
+      - name: Deploy Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: public
 
       - name: Upload PDF
         uses: actions/upload-artifact@v4

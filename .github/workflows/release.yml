@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    container:
+      image: debian:stable-slim
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install LaTeX
+        run: |
+          apt-get update
+          apt-get install -y latexmk texlive-latex-base texlive-latex-extra
+
+      - name: Build
+        run: |
+          latexmk -pdf main.tex
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: pdf
+          path: main.pdf
