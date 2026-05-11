@@ -26,3 +26,9 @@ jobs:
       - name: Build
         run: |
           latexmk -pdf main.tex
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdf
+          path: main.pdf
