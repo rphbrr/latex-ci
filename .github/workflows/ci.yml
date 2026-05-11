@@ -20,7 +20,7 @@ jobs:
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
-            texlive-latex-base latexmk
+            git texlive-latex-base latexmk
 
       - name: Build
         run: |
